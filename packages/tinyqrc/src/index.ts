@@ -1,4 +1,3 @@
-import type { JSX } from "react";
 import qrcodegen from "./codegen";
 import {
   DEFAULT_BGCOLOR,
@@ -9,7 +8,20 @@ import {
   DEFAULT_SIZE,
   ERROR_LEVEL_MAP,
 } from "./constants";
-import type { Excavation, ImageSettings, Modules, QRPropsSVG } from "./types";
+import type { Excavation, ImageSettings, Modules } from "./types";
+
+// Adding new type definition to replace QRPropsSVG
+export type QRCodeSVGOptions = {
+  value: string;
+  size?: number;
+  level?: string;
+  bgColor?: string;
+  fgColor?: string;
+  margin?: number;
+  isOGContext?: boolean;
+  imageSettings?: ImageSettings;
+  [key: string]: unknown; // For any additional attributes
+};
 
 export function getImageSettings(
   cells: Modules,
@@ -135,7 +147,10 @@ export function convertImageSettingsToPixels(
   return { imgWidth, imgHeight, imgLeft, imgTop };
 }
 
-export function QRCodeSVG(props: QRPropsSVG) {
+/**
+ * Generates an SVG QR code as a string
+ */
+export function QRCodeSVG(options: QRCodeSVGOptions): string {
   const {
     value,
     size = DEFAULT_SIZE,
@@ -146,7 +161,7 @@ export function QRCodeSVG(props: QRPropsSVG) {
     isOGContext = false,
     imageSettings,
     ...otherProps
-  } = props;
+  } = options;
 
   const shouldUseHigherErrorLevel =
     isOGContext && imageSettings?.excavate && (level === "L" || level === "M");
@@ -168,7 +183,7 @@ export function QRCodeSVG(props: QRPropsSVG) {
     imageSettings
   );
 
-  let image: null | JSX.Element = null;
+  let imageTag = "";
   if (imageSettings != null && calculatedImageSettings != null) {
     if (calculatedImageSettings.excavation != null) {
       cells = excavateModules(cells, calculatedImageSettings.excavation);
@@ -183,30 +198,22 @@ export function QRCodeSVG(props: QRPropsSVG) {
           margin
         );
 
-      image = (
-        <img
-          src={imageSettings.src}
-          alt="Logo"
-          style={{
-            position: "absolute",
-            left: `${imgLeft}px`,
-            top: `${imgTop}px`,
-            width: `${imgWidth}px`,
-            height: `${imgHeight}px`,
-          }}
-        />
-      );
+      // Create an HTML img tag for OG context
+      imageTag = `<img
+        src="${imageSettings.src}"
+        alt="Logo"
+        style="position: absolute; left: ${imgLeft}px; top: ${imgTop}px; width: ${imgWidth}px; height: ${imgHeight}px;"
+      />`;
     } else {
-      image = (
-        <image
-          href={imageSettings.src}
-          height={calculatedImageSettings.h}
-          width={calculatedImageSettings.w}
-          x={calculatedImageSettings.x + margin}
-          y={calculatedImageSettings.y + margin}
-          preserveAspectRatio="none"
-        />
-      );
+      // Create an SVG image tag
+      imageTag = `<image
+        href="${imageSettings.src}"
+        height="${calculatedImageSettings.h}"
+        width="${calculatedImageSettings.w}"
+        x="${calculatedImageSettings.x + margin}"
+        y="${calculatedImageSettings.y + margin}"
+        preserveAspectRatio="none"
+      />`;
     }
   }
 
@@ -218,20 +225,47 @@ export function QRCodeSVG(props: QRPropsSVG) {
   // For level 40, 31329 -> 2
   const fgPath = generatePath(cells, margin);
 
-  return (
-    <svg
-      height={size}
-      width={size}
-      viewBox={`0 0 ${numCells} ${numCells}`}
-      {...otherProps}
-    >
-      <path
-        fill={bgColor}
-        d={`M0,0 h${numCells}v${numCells}H0z`}
-        shapeRendering="crispEdges"
-      />
-      <path fill={fgColor} d={fgPath} shapeRendering="crispEdges" />
-      {image}
-    </svg>
-  );
+  // Convert additional props to attribute string
+  let attributesString = "";
+  for (const [key, value] of Object.entries(otherProps)) {
+    if (value != null) {
+      attributesString += ` ${key}="${value}"`;
+    }
+  }
+
+  return `<svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="${size}"
+    width="${size}"
+    viewBox="0 0 ${numCells} ${numCells}"
+    role="img"
+    aria-label="QR Code"
+    data-generator="tinyqrc"
+    ${attributesString}
+  >
+    <title>QR Code</title>
+    <desc>Scan this QR code with your mobile device</desc>
+    <path
+      fill="${bgColor}"
+      d="M0,0 h${numCells}v${numCells}H0z"
+      shapeRendering="crispEdges"
+    />
+    <path fill="${fgColor}" d="${fgPath}" shapeRendering="crispEdges" />
+    ${imageTag}
+  </svg>`;
+}
+
+/**
+ * Creates an SVG DOM element with the QR code
+ */
+export function createQRCodeSVG(options: QRCodeSVGOptions): SVGElement {
+  const svgString = QRCodeSVG(options);
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(svgString, "image/svg+xml");
+  const element = doc.documentElement;
+  // Ensure that the element is an SVG element
+  if (!(element instanceof SVGElement)) {
+    throw new Error("Failed to create SVG element");
+  }
+  return element;
 }
