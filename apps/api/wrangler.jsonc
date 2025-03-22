@@ -1,8 +1,14 @@
 {
   "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
-  "name": "api",
+  "name": "tinyqrc-api",
   "main": "src/index.ts",
   "compatibility_date": "2025-03-02",
+  "routes": [
+    {
+      "pattern": "api.tinyqrc.com",
+      "custom_domain": true,
+    },
+  ],
   // "assets": {
   //   "directory": "./public/",
   //   "binding": "ASSETS"
@@ -35,8 +41,8 @@
   // "ai": {
   //   "binding": "AI"
   // },
-  // "observability": {
-  //   "enabled": true,
-  //   "head_sampling_rate": 1
-  // }
+  "observability": {
+    "enabled": true,
+    // "head_sampling_rate": 1
+  },
 }
