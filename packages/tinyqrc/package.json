@@ -16,8 +16,6 @@
   "module": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./codegen": "./src/codegen.ts",
-    "./types": "./src/types.ts",
     "./constants": "./src/constants.ts"
   },
   "type": "module",

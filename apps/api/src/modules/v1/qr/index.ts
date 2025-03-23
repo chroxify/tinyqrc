@@ -2,7 +2,7 @@ import type { App } from "@/lib/hono";
 import { createRoute, z } from "@hono/zod-openapi";
 import { Response } from "@/lib/response";
 import { errorResponses } from "@/utils/errorResponses";
-import { QRCodeSVG } from "tinyqrc";
+import { generateSVG } from "tinyqrc";
 import {
   DEFAULT_BGCOLOR,
   DEFAULT_FGCOLOR,
@@ -105,7 +105,7 @@ export const registerQR = (app: App) => {
       const qrCodeLogo = await getQRCodeLogo({ data, logo });
 
       // Generate SVG
-      const svgString = QRCodeSVG({
+      const svgString = generateSVG({
         value: data,
         size,
         level,

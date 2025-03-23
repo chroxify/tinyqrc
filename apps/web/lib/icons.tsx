@@ -182,4 +182,169 @@ export const Icons = {
       />
     </svg>
   )),
+  QRCode: withDefaultSize((props: IconProps) => (
+    <svg
+      height="24"
+      width="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M14 14V16H16M18 14H20M20 18H18V20M14 19.99V20M16 10H18C19.1046 10 20 9.10457 20 8V6C20 4.89543 19.1046 4 18 4H16C14.8954 4 14 4.89543 14 6V8C14 9.10457 14.8954 10 16 10ZM6 20H8C9.10457 20 10 19.1046 10 18V16C10 14.8954 9.10457 14 8 14H6C4.89543 14 4 14.8954 4 16V18C4 19.1046 4.89543 20 6 20ZM6 10H8C9.10457 10 10 9.10457 10 8V6C10 4.89543 9.10457 4 8 4H6C4.89543 4 4 4.89543 4 6V8C4 9.10457 4.89543 10 6 10Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  )),
+  SVG: withDefaultSize((props: IconProps) => (
+    <svg
+      height="24"
+      width="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M5 11V6C5 4.89543 5.89543 4 7 4H14.1716C14.702 4 15.2107 4.21071 15.5858 4.58579L18.4142 7.41421C18.7893 7.78929 19 8.29799 19 8.82843V11"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M10 15L12 20L14 15"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M20.125 18.0548V19.3827C19.7022 19.8416 19.006 20.0437 18.3903 20.0511C17.1481 20.0511 16.25 18.9838 16.25 17.5345C16.25 16.0851 17.1948 15.0178 18.2481 14.9537C18.6289 14.9306 19.2665 15.0155 19.6259 15.3648"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M14 5V7C14 8.10457 14.8954 9 16 9H18"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M7 15H5.25C4.55964 15 4 15.5596 4 16.25V16.25C4 16.9404 4.55964 17.5 5.25 17.5H5.75C6.44036 17.5 7 18.0596 7 18.75V18.75C7 19.4404 6.44036 20 5.75 20H4"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="2"
+      />
+    </svg>
+  )),
+  PNG: withDefaultSize((props: IconProps) => (
+    <svg
+      height="24"
+      width="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M5 11V6C5 4.89543 5.89543 4 7 4H14.1716C14.702 4 15.2107 4.21071 15.5858 4.58579L18.4142 7.41421C18.7893 7.78929 19 8.29799 19 8.82843V11"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M4 20V15H5.75C6.57843 15 7.25 15.6716 7.25 16.5C7.25 17.3284 6.57843 18 5.75 18H4.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M10 20V15H10.25L13.25 20H13.5V15"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M20.125 18.0548V19.3827C19.7022 19.8416 19.006 20.0437 18.3903 20.0511C17.1481 20.0511 16.25 18.9838 16.25 17.5345C16.25 16.0851 17.1948 15.0178 18.2481 14.9537C18.6289 14.9306 19.2665 15.0155 19.6259 15.3648"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M14 5V7C14 8.10457 14.8954 9 16 9H18"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  )),
+  JPG: withDefaultSize((props: IconProps) => (
+    <svg
+      height="24"
+      width="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M5 11V6C5 4.89543 5.89543 4 7 4H14.1716C14.702 4 15.2107 4.21071 15.5858 4.58579L18.4142 7.41421C18.7893 7.78929 19 8.29799 19 8.82843V11M14 5V7C14 8.10457 14.8954 9 16 9H18"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M9.5 20V15H11.25C12.0784 15 12.75 15.6716 12.75 16.5C12.75 17.3284 12.0784 18 11.25 18H10"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M6.5 15V18.5C6.5 19.3284 5.82843 20 5 20H4.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M19.125 18.0548V19.3827C18.7022 19.8416 18.006 20.0437 17.3903 20.0511C16.1481 20.0511 15.25 18.9838 15.25 17.5345C15.25 16.0851 16.1948 15.0178 17.2481 14.9537C17.6289 14.9306 18.2665 15.0155 18.6259 15.3648"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  )),
+  Image: withDefaultSize((props: IconProps) => (
+    <svg
+      height="24"
+      width="24"
+      fill="none"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M4 14.2105L6.84488 12.0821C7.66137 11.5378 8.75215 11.6663 9.41987 12.3853C10.9123 13.9926 12.6426 15.4538 15 15.4538C17.1727 15.4538 18.6125 14.6485 20 13.261M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20ZM17 9C17 10.1046 16.1046 11 15 11C13.8954 11 13 10.1046 13 9C13 7.89543 13.8954 7 15 7C16.1046 7 17 7.89543 17 9Z"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  )),
 };

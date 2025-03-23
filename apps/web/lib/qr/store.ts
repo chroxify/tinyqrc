@@ -1,12 +1,13 @@
 import { create } from "zustand";
-import type { QR_LEVELS } from "tinyqrc/constants";
-import type {
-  QRData,
-  QRDataType,
-  EmptyDataStructure,
-  QRDataValues,
-} from "@/lib/qr/types";
-import { qrDataSchemas } from "@/lib/qr/schema";
+import {
+  DEFAULT_LEVEL,
+  DEFAULT_MARGIN,
+  DEFAULT_SIZE,
+  type QR_LEVELS,
+} from "tinyqrc/constants";
+import type { QRData, QRDataType } from "@/lib/qr/types";
+import { generateSVG } from "tinyqrc";
+import type { JSX } from "react";
 
 interface QRState {
   // Core QR data
@@ -39,21 +40,9 @@ const initialState = {
   fgColor: "#000000",
   bgColor: "#FFFFFF",
   logo: undefined,
-  size: 600,
-  margin: 4,
-  level: "L" as const,
-};
-
-// Helper to get empty data structure for a type
-const getEmptyDataForType = <T extends QRDataType>(
-  type: T
-): EmptyDataStructure<T> => {
-  const schema = qrDataSchemas[type];
-  const shape = schema.shape;
-  return Object.keys(shape).reduce((acc, key) => {
-    acc[key as keyof EmptyDataStructure<T>] = "";
-    return acc;
-  }, {} as EmptyDataStructure<T>);
+  size: DEFAULT_SIZE,
+  margin: DEFAULT_MARGIN,
+  level: DEFAULT_LEVEL as (typeof QR_LEVELS)[number],
 };
 
 // Create the store
@@ -103,14 +92,37 @@ export const getQRCodeUrl = (state: QRState): string | null => {
     data: formatQRData(state.data),
     fgColor: state.fgColor,
     bgColor: state.bgColor,
-    // size: state.size.toString(),
-    // margin: state.margin.toString(),
-    // level: state.level,
+    size: state.size.toString(),
+    margin: state.margin.toString(),
+    level: state.level,
   });
 
   if (state.logo) {
     params.append("logo", state.logo);
   }
 
-  return `https://api.tinyqrc.com/v1/qr?${params.toString()}`;
+  return `http://localhost:8787/v1/qr?${params.toString()}`;
+};
+
+export const getQRCodeSVG = ({ state }: { state: QRState }): string | null => {
+  if (!state.data) return null;
+
+  const svgString = generateSVG({
+    value: formatQRData(state.data),
+    fgColor: state.fgColor,
+    bgColor: state.bgColor,
+    size: state.size,
+    margin: state.margin,
+    level: state.level,
+    ...(state.logo && {
+      imageSettings: {
+        src: state.logo,
+        height: state.size / 4,
+        width: state.size / 4,
+        excavate: true,
+      },
+    }),
+  });
+
+  return svgString;
 };

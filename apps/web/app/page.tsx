@@ -1,18 +1,8 @@
-"use client";
-
-import { ColorInput } from "@/components/ColorInput";
-import { DataInput } from "@/components/DataInput";
-import { QRCodePreview } from "@/components/QRCodePreview";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Icons } from "@/lib/icons";
 import Image from "next/image";
-import { useQRStore } from "@/lib/qr/store";
 import { QRCodeUrl } from "@/components/QRCodeUrl";
+import { QRCodeCard } from "@/components/QRCodeCard";
 
 export default function Home() {
-  const { logo, setLogo } = useQRStore();
-
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-[100dvh] p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-8 row-start-2 items-center">
@@ -26,34 +16,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-4">
-          {/* QR Code Card */}
-          <div className="flex flex-col gap-4 items-center max-w-xl w-full bg-muted/50 rounded-xl p-3 border">
-            <DataInput />
-            <div className="flex flex-col gap-4 w-full">
-              <QRCodePreview />
-
-              <div className="flex flex-row gap-2 w-full h-full">
-                {/* Logo */}
-                <div className="flex flex-col gap-1 w-full">
-                  {/* <span className="text-sm text-black/60 ml-[1px]">Logo</span> */}
-                  <Input
-                    type="text"
-                    placeholder="Logo URL (optional)"
-                    className="w-full"
-                    value={logo || ""}
-                    onChange={(e) => setLogo(e.target.value)}
-                  />
-                </div>
-
-                {/* Color */}
-                <div className="flex flex-row gap-2 w-full">
-                  <ColorInput type="fg" />
-                  <ColorInput type="bg" />
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <QRCodeCard />
           <QRCodeUrl />
         </div>
       </main>

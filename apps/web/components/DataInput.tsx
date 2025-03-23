@@ -11,7 +11,7 @@ import {
 } from "./ui/dropdown-menu";
 import { useQRStore } from "@/lib/qr/store";
 import { DataInputs } from "@/lib/qr/schema";
-import type { QRDataType, QRData, DataTypeConfig } from "@/lib/qr/types";
+import type { QRDataType } from "@/lib/qr/types";
 
 export function DataInput() {
   const { data, setData } = useQRStore();
