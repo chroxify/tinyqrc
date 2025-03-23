@@ -24,18 +24,24 @@ export default function Home() {
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <Link
           href="https://go.tinyqrc.com/docs"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-sm text-muted-foreground hover:text-foreground hover:underline transition-all duration-200"
         >
           Documentation
         </Link>
         <Link
           href="https://go.tinyqrc.com/github"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-sm text-muted-foreground hover:text-foreground hover:underline transition-all duration-200"
         >
           Github
         </Link>
         <Link
           href="https://go.tinyqrc.com/contact"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-sm text-muted-foreground hover:text-foreground hover:underline transition-all duration-200"
         >
           Contact

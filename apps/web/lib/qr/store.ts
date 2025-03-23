@@ -35,7 +35,10 @@ interface QRState {
 
 // Initial state values
 const initialState = {
-  data: null,
+  data: {
+    type: "url" as QRDataType,
+    data: {},
+  },
   fgColor: "#000000",
   bgColor: "#FFFFFF",
   logo: undefined,
@@ -49,7 +52,14 @@ export const useQRStore = create<QRState>((set) => ({
   ...initialState,
 
   // Actions
-  setData: (type, data) => set({ data: { type, data } }),
+  setData: (type, data) =>
+    set((state) => ({
+      data: {
+        type,
+        // If type is changing, clear all data to prevent error states
+        data: state.data?.type === type ? { ...state.data.data, ...data } : {},
+      },
+    })),
   setFgColor: (fgColor) => set({ fgColor }),
   setBgColor: (bgColor) => set({ bgColor }),
   setLogo: (logo) => set({ logo }),
@@ -69,7 +79,9 @@ export const formatQRData = (data: QRData): string => {
     case "email":
       return `mailto:${data.data.to}?subject=${encodeURIComponent(data.data.subject)}&body=${encodeURIComponent(data.data.body)}`;
     case "phone":
-      return `tel:${data.data.phone}`;
+      return data.data.message
+        ? `sms:${data.data.phone}?body=${encodeURIComponent(data.data.message)}`
+        : `tel:${data.data.phone}`;
     case "wifi":
       return `WIFI:S:${data.data.ssid};T:WPA;P:${data.data.password};;`;
     case "vcard":
@@ -80,15 +92,48 @@ TEL:${data.data.phone}
 EMAIL:${data.data.email}
 URL:${data.data.url}
 END:VCARD`;
+    case "location": {
+      const mapQuery = encodeURIComponent(
+        `${data.data.address}${data.data.name ? ` (${data.data.name})` : ""}`
+      );
+      return `https://maps.google.com/maps?q=${mapQuery}`;
+    }
+    case "event": {
+      // Convert YYYY-MM-DD HH:mm to YYYYMMDDTHHmmssZ
+      const formatDate = (dateStr: string) => {
+        if (!dateStr?.trim()) return "";
+        const [date, time] = dateStr.split(" ");
+        if (!date || !time) return "";
+        return `${date.replace(/-/g, "")}T${time.replace(":", "")}00Z`;
+      };
+
+      const start = formatDate(data.data.start);
+      const end = formatDate(data.data.end);
+      if (!start || !end) return "";
+
+      return `BEGIN:VEVENT
+SUMMARY:${data.data.title}
+DTSTART:${start}
+DTEND:${end}${data.data.location ? `\nLOCATION:${data.data.location}` : ""}${data.data.description ? `\nDESCRIPTION:${data.data.description}` : ""}
+END:VEVENT`;
+    }
   }
+};
+
+// Helper function to check if data is empty
+const isDataEmpty = (data: QRData): boolean => {
+  return !Object.values(data.data).some((value) => value?.trim());
 };
 
 // Helper function to get QR code URL from store state
 export const getQRCodeUrl = (state: QRState): string | null => {
-  if (!state.data) return null;
+  if (!state.data || isDataEmpty(state.data)) return null;
+
+  const formattedData = formatQRData(state.data);
+  if (!formattedData) return null;
 
   const params = new URLSearchParams({
-    data: formatQRData(state.data),
+    data: formattedData,
     ...(state.fgColor !== initialState.fgColor && { fgColor: state.fgColor }),
     ...(state.bgColor !== initialState.bgColor && { bgColor: state.bgColor }),
     ...(state.size !== initialState.size && { size: state.size.toString() }),
@@ -108,10 +153,13 @@ export const getQRCodeUrl = (state: QRState): string | null => {
 };
 
 export const getQRCodeSVG = ({ state }: { state: QRState }): string | null => {
-  if (!state.data) return null;
+  if (!state.data || isDataEmpty(state.data)) return null;
+
+  const formattedData = formatQRData(state.data);
+  if (!formattedData) return null;
 
   const options = {
-    value: formatQRData(state.data),
+    value: formattedData,
     ...(state.fgColor !== initialState.fgColor && { fgColor: state.fgColor }),
     ...(state.bgColor !== initialState.bgColor && { bgColor: state.bgColor }),
     ...(state.size !== initialState.size && { size: state.size }),

@@ -14,7 +14,15 @@ export type DataTypeConfig = z.infer<typeof dataTypeSchema>;
 
 // QR Data types
 export type QRDataSchemas = typeof qrDataSchemas;
-export type QRDataType = "text" | "url" | "email" | "wifi" | "phone" | "vcard";
+export type QRDataType =
+  | "text"
+  | "url"
+  | "email"
+  | "wifi"
+  | "phone"
+  | "vcard"
+  | "location"
+  | "event";
 export type QRDataValues = {
   [K in QRDataType]: z.infer<QRDataSchemas[K]>;
 };

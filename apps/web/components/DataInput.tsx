@@ -25,6 +25,11 @@ export function DataInput() {
     Record<string, boolean>
   >({});
 
+  // Reset validation state when type changes
+  useEffect(() => {
+    setValidationState({});
+  }, [type]);
+
   const gridCols =
     {
       1: "grid-cols-1",
@@ -175,7 +180,7 @@ function DataSelect({
             key={key}
             onSelect={() => onTypeSelect(key as QRDataType)}
           >
-            <config.icon className="text-foreground/70 mr-2" />
+            <config.icon className="text-foreground/70 mr-1" />
             {config.label}
           </DropdownMenuItem>
         ))}

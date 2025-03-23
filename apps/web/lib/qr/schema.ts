@@ -49,21 +49,21 @@ export const qrDataSchemas = {
     phone: z.string(),
     url: z.string().url(),
   }),
+  location: z.object({
+    address: z.string(),
+    name: z.string().optional(),
+  }),
+  event: z.object({
+    title: z.string(),
+    start: z.string(),
+    end: z.string(),
+    description: z.string().optional(),
+    location: z.string().optional(),
+  }),
 } as const;
 
 // Input configurations
 export const DataInputs: QRDataTypesConfig = {
-  text: {
-    icon: Icons.Text,
-    label: "Text",
-    inputs: [
-      {
-        id: "text",
-        placeholder: "Enter your text",
-        type: "text",
-      },
-    ],
-  },
   url: {
     icon: Icons.URL,
     label: "URL",
@@ -81,6 +81,17 @@ export const DataInputs: QRDataTypesConfig = {
             value
           );
         },
+      },
+    ],
+  },
+  text: {
+    icon: Icons.Text,
+    label: "Text",
+    inputs: [
+      {
+        id: "text",
+        placeholder: "Enter your text",
+        type: "text",
       },
     ],
   },
@@ -145,6 +156,70 @@ export const DataInputs: QRDataTypesConfig = {
     layout: {
       grid: true,
       columns: 1,
+    },
+  },
+  location: {
+    icon: Icons.Pin,
+    label: "Location",
+    inputs: [
+      {
+        id: "address",
+        placeholder: "Enter address",
+        type: "text",
+        className: "col-span-full",
+      },
+      {
+        id: "name",
+        placeholder: "Location Name (optional)",
+        type: "text",
+        className: "col-span-full",
+      },
+    ],
+    layout: {
+      grid: true,
+      columns: 1,
+    },
+  },
+  event: {
+    icon: Icons.Calendar,
+    label: "Event",
+    inputs: [
+      {
+        id: "title",
+        placeholder: "Event Title",
+        type: "text",
+        className: "col-span-full",
+      },
+      {
+        id: "start",
+        placeholder: "Start (YYYY-MM-DD HH:mm)",
+        type: "text",
+        className: "col-span-1",
+        validation: (value) => /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(value),
+      },
+      {
+        id: "end",
+        placeholder: "End (YYYY-MM-DD HH:mm)",
+        type: "text",
+        className: "col-span-1",
+        validation: (value) => /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(value),
+      },
+      {
+        id: "location",
+        placeholder: "Location (optional)",
+        type: "text",
+        className: "col-span-full",
+      },
+      {
+        id: "description",
+        placeholder: "Description (optional)",
+        type: "text",
+        className: "col-span-full",
+      },
+    ],
+    layout: {
+      grid: true,
+      columns: 2,
     },
   },
   vcard: {
