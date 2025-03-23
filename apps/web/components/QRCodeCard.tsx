@@ -5,7 +5,7 @@ import { QRCodePreview } from "./QRCodePreview";
 
 export function QRCodeCard() {
   return (
-    <div className="flex flex-col gap-4 items-center max-w-xl w-full bg-muted/50 rounded-xl p-3 border">
+    <div className="flex flex-col gap-4 items-center w-full bg-muted/50 rounded-xl p-3 border">
       {/* Data Input */}
       <DataInput />
 
@@ -13,7 +13,7 @@ export function QRCodeCard() {
       <QRCodePreview />
 
       {/* QR Code Settings */}
-      <div className="flex flex-row gap-2 w-full h-full">
+      <div className="flex flex-col-reverse sm:flex-row gap-2 w-full h-full">
         {/* Logo */}
         <div className="flex flex-col gap-1 w-full">
           <LogoInput />

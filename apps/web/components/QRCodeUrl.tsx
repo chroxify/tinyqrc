@@ -19,7 +19,7 @@ export function QRCodeUrl() {
 
   return (
     <div
-      className="flex flex-row gap-2 max-w-xl bg-muted/50 items-center justify-between rounded-xl pl-3.5 p-2 border text-sm group hover:cursor-copy"
+      className="flex flex-row gap-2 min-w-0 w-full bg-muted/50 items-center justify-between rounded-xl pl-3.5 p-2 border text-sm group hover:cursor-copy"
       onClick={handleCopy}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -27,7 +27,7 @@ export function QRCodeUrl() {
         }
       }}
     >
-      <span className="text-muted-foreground truncate select-none">
+      <span className="text-muted-foreground w-full line-clamp-1 select-none break-words break-all overflow-hidden">
         {decodeURIComponent(qrUrl || "")}
       </span>
 
