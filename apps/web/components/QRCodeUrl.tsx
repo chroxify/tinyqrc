@@ -17,6 +17,14 @@ export function QRCodeUrl() {
     setTimeout(() => setIsCopied(false), 1500);
   };
 
+  if (!qrUrl) {
+    return (
+      <div className="flex items-center justify-center w-full p-3 bg-muted/50 rounded-xl border text-sm text-muted-foreground">
+        Configure your QR code to see the URL
+      </div>
+    );
+  }
+
   return (
     <div
       className="flex flex-row gap-2 min-w-0 w-full bg-muted/50 items-center justify-between rounded-xl pl-3.5 p-2 border text-sm group hover:cursor-copy"

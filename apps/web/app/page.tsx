@@ -6,12 +6,13 @@ export default function Home() {
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-[100dvh] p-4 sm:p-8 pb-20 gap-16 ">
       <main className="flex flex-col gap-8 row-start-2 items-center">
         {/* Title and description */}
-        <div className="flex flex-col gap-2 items-center max-w-xl text-center">
-          <h1 className="text-5xl font-semibold">QR Code API</h1>
-          <p className="sm:text-lg text-black/60">
-            A free, simple and fast QR Code API for developers. Generate
-            unlimited QR codes programmatically.
-          </p>
+        <div className="flex flex-col gap-2 items-center max-w-2xl text-center">
+          <h1 className="text-4xl sm:text-5xl font-semibold">QR Code API</h1>
+          <h2 className="sm:text-lg text-black/60 font-normal">
+            Generate dynamic QR codes instantly with our developer-first API.
+            <br className="hidden sm:block" /> Seamless integration, unlimited
+            requests, lightning-fast response times.
+          </h2>
         </div>
 
         <div className="flex flex-col gap-4 max-w-xl w-full">
