@@ -70,7 +70,7 @@ export function DataInput() {
     <div
       ref={containerRef}
       className="flex flex-col gap-4 w-full relative transition-[height] duration-300 ease-in-out"
-      style={{ height: "40px" }}
+      style={{ height: "36px" }}
     >
       <div className="absolute w-full">
         <div
