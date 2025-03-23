@@ -39,6 +39,7 @@ export type QRDataInput = {
   placeholder: string;
   label?: string;
   className?: string;
+  validation?: (value: string) => boolean;
 };
 export type QRDataConfig = {
   icon: FC<IconProps>;

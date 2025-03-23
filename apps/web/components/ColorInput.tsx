@@ -17,7 +17,7 @@ export function ColorInput({ type }: ColorInputProps) {
     <div
       className={cn(
         "flex w-full rounded-md transition-all duration-200 border bg-background overflow-hidden",
-        "focus-within:ring-2 focus-within:ring-primary focus-within:outline-none"
+        "focus-within:ring-[1.5px] focus-within:ring-primary focus-within:outline-none"
       )}
     >
       <div className="flex items-center justify-center min-w-9 text-sm bg-secondary border-r text-secondary-foreground">

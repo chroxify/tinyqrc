@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
 import {
@@ -20,6 +20,11 @@ export function DataInput() {
   const isSeparated = config.inputs.length > 1;
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Add validation state tracking
+  const [validationState, setValidationState] = useState<
+    Record<string, boolean>
+  >({});
+
   const gridCols =
     {
       1: "grid-cols-1",
@@ -28,11 +33,22 @@ export function DataInput() {
       4: "grid-cols-4",
     }[config.layout?.columns ?? 1] ?? "grid-cols-1";
 
-  // Handle input changes
-  const handleInputChange = (id: string, value: string) => {
+  // Handle input changes with validation
+  const handleInputChange = (
+    id: string,
+    value: string,
+    validation?: (value: string) => boolean
+  ) => {
     const values = { ...data?.data } as Record<string, string>;
     values[id] = value;
     setData(type, values);
+
+    if (validation) {
+      setValidationState((prev) => ({
+        ...prev,
+        [id]: validation(value),
+      }));
+    }
   };
 
   // Animate height changes
@@ -54,21 +70,33 @@ export function DataInput() {
     <div
       ref={containerRef}
       className="flex flex-col gap-4 w-full relative transition-[height] duration-300 ease-in-out"
-      style={{ height: "40px" }} // Initial height of single input
+      style={{ height: "40px" }}
     >
       <div className="absolute w-full">
-        <div className={cn("flex relative")}>
+        <div
+          className={cn(
+            "flex relative rounded-md transition-all duration-200",
+            !isSeparated &&
+              "focus-within:ring-[1.5px] focus-within:ring-primary"
+          )}
+        >
           <DataSelect type={type} onTypeSelect={(t) => setData(t, {})} />
           <Input
             type={config.inputs[0].type}
             id={config.inputs[0].id}
             value={data?.data?.[config.inputs[0].id] || ""}
             onChange={(e) =>
-              handleInputChange(config.inputs[0].id, e.target.value)
+              handleInputChange(
+                config.inputs[0].id,
+                e.target.value,
+                config.inputs[0].validation
+              )
             }
             className={cn(
-              "rounded-l-none focus-visible:ring-0 focus-visible:ring-offset-0 px-3 py-0",
-              isSeparated && "rounded-l-md ml-3"
+              "rounded-l-none focus-visible:ring-0 px-3 py-0",
+              isSeparated && "rounded-l-md ml-3 focus-visible:ring-[1.5px]",
+              validationState[config.inputs[0].id] === false &&
+                "text-destructive"
             )}
             placeholder={config.inputs[0].placeholder}
           />
@@ -88,12 +116,15 @@ export function DataInput() {
                 type={input.type}
                 id={input.id}
                 value={data?.data?.[input.id] || ""}
-                onChange={(e) => handleInputChange(input.id, e.target.value)}
+                onChange={(e) =>
+                  handleInputChange(input.id, e.target.value, input.validation)
+                }
                 placeholder={input.placeholder}
                 className={cn(
                   input.className,
                   "animate-in fade-in duration-300 ease-in-out",
-                  `delay-[${index * 75}ms]`
+                  `delay-[${index * 75}ms]`,
+                  validationState[input.id] === false && "text-destructive"
                 )}
               />
             ))}

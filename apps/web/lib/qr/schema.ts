@@ -10,6 +10,7 @@ export const inputFieldSchema = z.object({
   type: z.enum(["text", "number", "email", "tel", "url"]).default("text"),
   label: z.string().optional(),
   className: z.string().optional(),
+  validation: z.function().args(z.string()).returns(z.boolean()).optional(),
 });
 
 // Data type schema
@@ -34,7 +35,10 @@ export const qrDataSchemas = {
     subject: z.string(),
     body: z.string(),
   }),
-  phone: z.object({ phone: z.string() }),
+  phone: z.object({
+    phone: z.string(),
+    message: z.string().optional(),
+  }),
   wifi: z.object({
     ssid: z.string(),
     password: z.string(),
@@ -68,6 +72,15 @@ export const DataInputs: QRDataTypesConfig = {
         id: "url",
         placeholder: "Enter URL",
         type: "url",
+        validation: (value) => {
+          // Allows URLs with or without protocol
+          // Must have valid domain structure (e.g. example.com, sub.example.co.uk)
+          // Can have paths, query params, fragments
+          // Protocol if present must be http:// or https://
+          return /^(?:(?:https?:\/\/)?(?:[\w-]+\.)+[a-z]{2,}(?:\/[^\s]*)?)?$/i.test(
+            value
+          );
+        },
       },
     ],
   },
@@ -79,6 +92,7 @@ export const DataInputs: QRDataTypesConfig = {
         id: "to",
         placeholder: "To Email",
         type: "email",
+        validation: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
       },
       {
         id: "subject",
@@ -100,8 +114,18 @@ export const DataInputs: QRDataTypesConfig = {
         id: "phone",
         placeholder: "Enter phone number",
         type: "tel",
+        validation: (value) => /^\+?[\d\s-()]{10,}$/.test(value),
+      },
+      {
+        id: "message",
+        placeholder: "Message (optional)",
+        type: "text",
       },
     ],
+    layout: {
+      grid: true,
+      columns: 1,
+    },
   },
   wifi: {
     icon: Icons.WiFi,
