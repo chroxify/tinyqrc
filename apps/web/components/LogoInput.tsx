@@ -25,7 +25,7 @@ export function LogoInput() {
   return (
     <div className="flex w-full rounded-md transition-all duration-200 border bg-background overflow-hidden focus-within:ring-2 focus-within:ring-primary">
       <div className="flex items-center justify-center min-w-9 text-sm bg-secondary border-r text-secondary-foreground">
-        {isValidImage === true ? (
+        {isValidImage === true && logo ? (
           <img
             src={logo}
             alt="Logo preview"
@@ -43,7 +43,7 @@ export function LogoInput() {
       </div>
       <Input
         type="text"
-        placeholder="Logo URL (optional)"
+        placeholder="Logo URL"
         className={cn(
           "border-0 ml-3 rounded-none h-[34px] focus-visible:ring-0 focus-visible:ring-offset-0 px-0 py-0",
           isValidImage === false && "text-destructive"

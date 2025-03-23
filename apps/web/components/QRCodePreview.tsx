@@ -2,7 +2,7 @@
 
 import { Icons } from "@/lib/icons";
 import { Button } from "./ui/button";
-import { useQRStore, getQRCodeSVG } from "@/lib/qr/store";
+import { useQRStore, getQRCodeSVG, getQRCodeUrl } from "@/lib/qr/store";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,7 +35,6 @@ export function QRCodePreview() {
     if (!svgString) return;
     if (type === "png") {
       const pngDataUrl = await svgToPng(svgString, 2048, 2048);
-      // Convert data URL to blob
       const response = await fetch(pngDataUrl);
       const blob = await response.blob();
       await navigator.clipboard.write([
@@ -44,7 +43,7 @@ export function QRCodePreview() {
         }),
       ]);
     } else {
-      await navigator.clipboard.writeText(svgString);
+      await navigator.clipboard.writeText(getQRCodeUrl(store) || "");
     }
   };
 

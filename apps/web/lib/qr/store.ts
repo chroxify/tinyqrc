@@ -7,7 +7,6 @@ import {
 } from "tinyqrc/constants";
 import type { QRData, QRDataType } from "@/lib/qr/types";
 import { generateSVG } from "tinyqrc";
-import type { JSX } from "react";
 
 interface QRState {
   // Core QR data
@@ -90,30 +89,36 @@ export const getQRCodeUrl = (state: QRState): string | null => {
 
   const params = new URLSearchParams({
     data: formatQRData(state.data),
-    fgColor: state.fgColor,
-    bgColor: state.bgColor,
-    size: state.size.toString(),
-    margin: state.margin.toString(),
-    level: state.level,
+    ...(state.fgColor !== initialState.fgColor && { fgColor: state.fgColor }),
+    ...(state.bgColor !== initialState.bgColor && { bgColor: state.bgColor }),
+    ...(state.size !== initialState.size && { size: state.size.toString() }),
+    ...(state.margin !== initialState.margin && {
+      margin: state.margin.toString(),
+    }),
+    ...(state.level !== initialState.level && { level: state.level }),
   });
 
   if (state.logo) {
     params.append("logo", state.logo);
   }
 
-  return `http://localhost:8787/v1/qr?${params.toString()}`;
+  return process.env.NODE_ENV === "development"
+    ? `http://localhost:8787/v1/qr?${encodeURIComponent(params.toString())}`
+    : `https://api.tinyqrc.com/v1/qr?${encodeURIComponent(params.toString())}`;
 };
 
 export const getQRCodeSVG = ({ state }: { state: QRState }): string | null => {
   if (!state.data) return null;
 
-  const svgString = generateSVG({
+  const options = {
     value: formatQRData(state.data),
-    fgColor: state.fgColor,
-    bgColor: state.bgColor,
-    size: state.size,
-    margin: state.margin,
-    level: state.level,
+    ...(state.fgColor !== initialState.fgColor && { fgColor: state.fgColor }),
+    ...(state.bgColor !== initialState.bgColor && { bgColor: state.bgColor }),
+    ...(state.size !== initialState.size && { size: state.size }),
+    ...(state.margin !== initialState.margin && {
+      margin: Number(state.margin),
+    }),
+    ...(state.level !== initialState.level && { level: state.level }),
     ...(state.logo && {
       imageSettings: {
         src: state.logo,
@@ -122,7 +127,7 @@ export const getQRCodeSVG = ({ state }: { state: QRState }): string | null => {
         excavate: true,
       },
     }),
-  });
+  };
 
-  return svgString;
+  return generateSVG(options);
 };
