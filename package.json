@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo run build",
     "build:web": "turbo run build --filter=@tinyqrc/web",
+    "build:tinyqrc": "turbo run build --filter=tinyqrc",
     "deploy:api": "bun run --filter=@tinyqrc/api deploy",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
