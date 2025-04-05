@@ -18,7 +18,7 @@ export function QRCodePreview() {
   const downloadAs = async (format: "svg" | "png" | "jpg") => {
     if (!svgString) return;
 
-    let data = svgString;
+    let data = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
     if (format === "png") {
       data = await svgToPng(svgString, 2048, 2048);
     } else if (format === "jpg") {
@@ -27,7 +27,7 @@ export function QRCodePreview() {
 
     const a = document.createElement("a");
     a.href = data;
-    a.download = `qrcode.${format}`;
+    a.download = `QR Code.${format}`;
     a.click();
   };
 

@@ -132,24 +132,25 @@ export const getQRCodeUrl = (state: QRState): string | null => {
   const formattedData = formatQRData(state.data);
   if (!formattedData) return null;
 
-  const params = new URLSearchParams({
-    data: formattedData,
-    ...(state.fgColor !== initialState.fgColor && { fgColor: state.fgColor }),
-    ...(state.bgColor !== initialState.bgColor && { bgColor: state.bgColor }),
-    ...(state.size !== initialState.size && { size: state.size.toString() }),
-    ...(state.margin !== initialState.margin && {
-      margin: state.margin.toString(),
-    }),
-    ...(state.level !== initialState.level && { level: state.level }),
-  });
+  const params = new URLSearchParams();
+  params.append("data", formattedData);
+  if (state.fgColor !== initialState.fgColor)
+    params.append("fgColor", state.fgColor);
+  if (state.bgColor !== initialState.bgColor)
+    params.append("bgColor", state.bgColor);
+  if (state.size !== initialState.size)
+    params.append("size", state.size.toString());
+  if (state.margin !== initialState.margin)
+    params.append("margin", state.margin.toString());
+  if (state.level !== initialState.level) params.append("level", state.level);
+  if (state.logo) params.append("logo", state.logo);
 
-  if (state.logo) {
-    params.append("logo", state.logo);
-  }
+  const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:8787/v1/qr"
+      : "https://api.tinyqrc.com/v1/qr";
 
-  return process.env.NODE_ENV === "development"
-    ? `http://localhost:8787/v1/qr?${encodeURIComponent(params.toString())}`
-    : `https://api.tinyqrc.com/v1/qr?${encodeURIComponent(params.toString())}`;
+  return `${baseUrl}?${params.toString()}`;
 };
 
 export const getQRCodeSVG = ({ state }: { state: QRState }): string | null => {
