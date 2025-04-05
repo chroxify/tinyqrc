@@ -1,84 +1,60 @@
-# Turborepo starter
+[![TinyQRC](https://tinyqrc.com/banner.png)](https://tinyqrc.com)
 
-This Turborepo starter is maintained by the Turborepo core team.
+<p align="center">
+  <a aria-label="NPM version" href="https://www.npmjs.com/package/tinyqrc">
+    <img alt="" src="https://badgen.net/npm/v/tinyqrc">
+  </a>
+  <a aria-label="Package size" href="https://bundlephobia.com/result?p=tinyqrc">
+    <img alt="" src="https://badgen.net/bundlephobia/minzip/tinyqrc">
+  </a>
+  <a aria-label="License" href="https://github.com/chroxify/tinyqrc/blob/main/LICENSE">
+    <img alt="" src="https://badgen.net/npm/license/tinyqrc">
+  </a>
+</p>
 
-## Using this example
+## Introduction
 
-Run the following command:
+TinyQRC is a lightweight and simple QR code generation library and API. Generate beautiful QR codes quickly and easily, whether through the web interface, API, or npm package.
 
-```sh
-npx create-turbo@latest
+## Features
+
+- **Fast & Lightweight** - No dependencies, maximum performance
+- **Multiple Integration Options** - Web interface, REST API, or npm package
+- **Customization** - Control colors, size, and error correction levels
+- **Developer-First** - Simple, intuitive, and fast API
+
+## Quick Start
+
+### Package
+
+```ts
+import { generateSVG } from "tinyqrc";
+
+// Generate a QR code
+const svg = await generateSVG({
+  value: "https://example.com",
+  size: 256,
+});
 ```
 
-## What's inside?
+### REST API
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```bash
+curl -X GET "https://api.tinyqrc.com/v1/qr\
+?data=https://example.com\
+&size=256"
 ```
 
-### Develop
+[View API Documentation →](https://go.tinyqrc.com/docs)
 
-To develop all apps and packages, run the following command:
+### Web Interface
 
-```
-cd my-turborepo
-pnpm dev
-```
+Generate QR codes instantly at [tinyqrc.com](https://tinyqrc.com).
 
-### Remote Caching
+## Credits
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+Code Gen is based on [nayuki/QR-Code-generator](https://github.com/nayuki/QR-Code-generator) with modifications.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## License
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+MIT License.
