@@ -1,8 +1,9 @@
 {
   "name": "tinyqrc",
   "description": "A tiny QR code generator, written in TypeScript.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Christo Todorov <chroxify@gmail.com>",
+  "license": "MIT",
   "repository": "https://github.com/chroxify/tinyqrc",
   "keywords": [
     "qr",
@@ -12,7 +13,6 @@
     "qr-code-generator-typescript",
     "qr-code-generator-typescript-library"
   ],
-  "license": "AGPL-3.0-only",
   "module": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",

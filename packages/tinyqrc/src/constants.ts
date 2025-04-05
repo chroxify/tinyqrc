@@ -1,6 +1,8 @@
 import qrcodegen from "./codegen";
 
-export const ERROR_LEVEL_MAP: { [index: string]: qrcodegen.QrCode.Ecc } = {
+export const ERROR_CORRECTION_LEVELS: {
+  [index: string]: qrcodegen.QrCode.Ecc;
+} = {
   L: qrcodegen.QrCode.Ecc.LOW,
   M: qrcodegen.QrCode.Ecc.MEDIUM,
   Q: qrcodegen.QrCode.Ecc.QUARTILE,

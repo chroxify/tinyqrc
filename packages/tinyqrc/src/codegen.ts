@@ -6,9 +6,6 @@
  * Copyright (c) Project Nayuki
  *
  * Modified by Christo Todorov <chroxify@gmail.com>
- *
- * AGPL-3.0-only
- * Copyright (c) Christo Todorov
  */
 
 namespace qrcodegen {

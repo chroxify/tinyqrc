@@ -5,7 +5,7 @@ import {
   DEFAULT_LEVEL,
   DEFAULT_MARGIN,
   DEFAULT_SIZE,
-  ERROR_LEVEL_MAP,
+  ERROR_CORRECTION_LEVELS,
 } from "./constants";
 import type { ImageSettings } from "./types";
 import { excavateModules, getImageSettings, generatePath } from "./utils";
@@ -53,7 +53,7 @@ export function generateSVG(options: QRCodeOptions): string {
 
   let cells = qrcodegen.QrCode.encodeText(
     value,
-    ERROR_LEVEL_MAP[effectiveLevel]
+    ERROR_CORRECTION_LEVELS[effectiveLevel]
   ).getModules();
 
   const numCells = cells.length + margin * 2;
