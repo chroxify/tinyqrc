@@ -1,7 +1,7 @@
 {
   "name": "tinyqrc",
   "description": "A tiny QR code generator, written in TypeScript.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Christo Todorov <chroxify@gmail.com>",
   "license": "MIT",
   "repository": "https://github.com/chroxify/tinyqrc",
@@ -13,14 +13,34 @@
     "qr-code-generator-typescript",
     "qr-code-generator-typescript-library"
   ],
-  "module": "src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "exports": {
-    ".": "./src/index.ts",
-    "./constants": "./src/constants.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./constants": {
+      "types": "./dist/constants.d.ts",
+      "import": "./dist/constants.mjs",
+      "require": "./dist/constants.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc && tsc --module ESNext --outDir dist/esm && mv dist/esm/index.js dist/index.mjs && rm -rf dist/esm",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "bun run build"
   },
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "typescript": "^5.0.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
