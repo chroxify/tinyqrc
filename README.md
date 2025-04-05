@@ -2,13 +2,13 @@
 
 <p align="center">
   <a aria-label="NPM version" href="https://www.npmjs.com/package/tinyqrc">
-    <img alt="" src="https://badgen.net/npm/v/tinyqrc">
+    <img alt="NPM Version" src="https://img.shields.io/npm/v/tinyqrc?color=%232B8ECB">
   </a>
   <a aria-label="Package size" href="https://bundlephobia.com/result?p=tinyqrc">
     <img alt="" src="https://badgen.net/bundlephobia/minzip/tinyqrc">
   </a>
   <a aria-label="License" href="https://github.com/chroxify/tinyqrc/blob/main/LICENSE">
-    <img alt="" src="https://badgen.net/npm/license/tinyqrc">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/chroxify/tinyqrc?color=%232B8ECB">
   </a>
 </p>
 
