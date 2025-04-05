@@ -6,4 +6,5 @@ export {
   DEFAULT_LEVEL,
   DEFAULT_MARGIN,
   DEFAULT_SIZE,
+  QR_LEVELS,
 } from "./constants";

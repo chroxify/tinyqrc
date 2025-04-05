@@ -1,7 +1,7 @@
 {
   "name": "tinyqrc",
   "description": "A tiny QR code generator, written in TypeScript.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Christo Todorov <chroxify@gmail.com>",
   "license": "MIT",
   "repository": "https://github.com/chroxify/tinyqrc",
@@ -13,8 +13,8 @@
     "qr-code-generator-typescript",
     "qr-code-generator-typescript-library"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -22,18 +22,14 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    },
-    "./constants": {
-      "types": "./dist/constants.d.ts",
-      "import": "./dist/constants.mjs",
-      "require": "./dist/constants.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     }
   },
   "scripts": {
-    "build": "tsc && tsc --module ESNext --outDir dist/esm && mv dist/esm/index.js dist/index.mjs && rm -rf dist/esm",
-    "dev": "tsc --watch",
+    "build": "bun build ./src/index.ts --outdir dist --target node --minify --sourcemap && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format cjs && bun build ./src/index.ts --outdir dist --target node --minify --sourcemap --format esm && bun run build:types",
+    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist",
+    "dev": "bun build ./src/index.ts --outdir dist --target node --watch",
     "clean": "rm -rf dist",
     "prepublishOnly": "bun run build"
   },

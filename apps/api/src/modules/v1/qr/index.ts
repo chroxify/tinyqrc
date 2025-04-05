@@ -10,7 +10,7 @@ import {
   DEFAULT_MARGIN,
   DEFAULT_SIZE,
   QR_LEVELS,
-} from "tinyqrc/constants";
+} from "tinyqrc";
 import { InternalServerError } from "@/lib/errors";
 import { generateHash } from "@/utils/hash";
 

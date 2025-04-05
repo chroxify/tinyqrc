@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "build:web": "turbo run build --filter=@tinyqrc/web",
     "deploy:api": "bun run --filter=@tinyqrc/api deploy",
     "dev": "turbo run dev",
     "lint": "turbo run lint",

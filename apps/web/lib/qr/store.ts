@@ -4,7 +4,7 @@ import {
   DEFAULT_MARGIN,
   DEFAULT_SIZE,
   type QR_LEVELS,
-} from "tinyqrc/constants";
+} from "tinyqrc";
 import type { QRData, QRDataType } from "@/lib/qr/types";
 import { generateSVG } from "tinyqrc";
 
