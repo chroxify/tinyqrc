@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Instrument_Sans } from "next/font/google";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -104,6 +105,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${instrumentSans.className} antialiased`}>
+        <Analytics />
         {children}
       </body>
     </html>
